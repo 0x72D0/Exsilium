@@ -1,0 +1,172 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Script/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scene/Inventory.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/Crafting.tscn" type="PackedScene" id=3]
+[ext_resource path="res://engine_assets/Action_text.stylebox" type="StyleBox" id=4]
+[ext_resource path="res://Script/buildingCamera.gd" type="Script" id=5]
+[ext_resource path="res://git_1.png" type="Texture" id=6]
+[ext_resource path="res://git_2.png" type="Texture" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12, 12 )
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[node name="player" type="KinematicBody2D" index="0"]
+
+position = Vector2( 16, 16 )
+z_index = 1
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="CharacterCamera" type="Camera2D" parent="." index="0"]
+
+z_index = 2
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 0.9, 0.9 )
+limit_left = -100000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 10.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_screen = true
+editor_draw_limits = true
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Inventory_panel" parent="CharacterCamera" index="0" instance=ExtResource( 2 )]
+
+visible = false
+margin_left = -449.0
+margin_top = -266.0
+margin_right = 451.0
+margin_bottom = 254.0
+
+[node name="Crafting_panel" parent="CharacterCamera" index="1" instance=ExtResource( 3 )]
+
+visible = false
+margin_left = -446.0
+margin_top = -266.0
+margin_right = 454.0
+margin_bottom = 254.0
+
+[node name="Action_text" type="RichTextLabel" parent="CharacterCamera" index="2"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -386.0
+margin_top = 84.0
+margin_right = 354.0
+margin_bottom = 244.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/normal = ExtResource( 4 )
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "custom_colors", "custom_styles" ]
+
+[node name="ProgressBar" type="ProgressBar" parent="CharacterCamera" index="3"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -36.0
+margin_top = 24.0
+margin_right = 34.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = true
+
+[node name="buildingCamera" type="Camera2D" parent="." index="1"]
+
+anchor_mode = 1
+rotating = false
+current = false
+zoom = Vector2( 1.5, 1.5 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="3"]
+
+frames = SubResource( 2 )
+animation = "default"
+playing = true
+
+
